@@ -15,10 +15,6 @@ A standalone embedded system for automated precision irrigation, designed for in
 - **Hardware self-diagnostic mode** — sequential LED segment rotation across all 4 display digits
 - **Adjustable display brightness** (16 levels, 0–15)
 - **Auditory feedback** — distinct sounds for confirmation, error, warning, and success
-- **Galvanic isolation** between power (pump) and signal (Arduino) circuits
-- **Flyback diode protection** against back-EMF on relay switching
-- **Hydrostatic purge** of the distribution circuit on every cycle to eliminate stagnant water
-- **Dry-run protection** via controlled relay logic
 
 ---
 
