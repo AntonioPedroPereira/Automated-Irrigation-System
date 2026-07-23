@@ -141,4 +141,4 @@ Electrical and Computer Engineering — Automation, FEUP
 [LinkedIn](https://www.linkedin.com/in/ant%C3%B3nio-pereira-98b732352/) | [GitHub](https://github.com/AntonioPedroPereira)
 
 ## Acknowledgements
-Development assisted by Claude (Anthropic) for code generation and documentation.
+Development assisted by Gemini for code generation and Claude (Anthropic) for documentation.
