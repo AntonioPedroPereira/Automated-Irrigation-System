@@ -133,7 +133,7 @@ Install via Arduino Library Manager or `platformio.ini`.
 ## Author
 
 António P. Pereira
-Electrical and Computer Engineering — Automation, FEUP
+Electrical and Computer Engineering — Automation
 [LinkedIn](https://www.linkedin.com/in/ant%C3%B3nio-pereira-98b732352/) | [GitHub](https://github.com/AntonioPedroPereira)
 
 ## Acknowledgements
