@@ -1,4 +1,4 @@
-# Precision Micro-Irrigation Controller (written with Claude)
+# Precision Micro-Irrigation Controller
 ### Automated Indoor Irrigation System — Arduino Nano / Embedded C++
 
 A standalone embedded system for automated precision irrigation, designed for indoor farming and seedling cultivation. Built around a Finite State Machine (FSM) architecture, the controller provides programmable irrigation cycles, timed repetition, real-time countdown display, and hardware self-diagnostics. All operated through a physical keypad and 14-segment HMI.
@@ -139,3 +139,6 @@ Install via Arduino Library Manager or `platformio.ini`.
 António P. Pereira
 Electrical and Computer Engineering — Automation, FEUP
 [LinkedIn](https://www.linkedin.com/in/ant%C3%B3nio-pereira-98b732352/) | [GitHub](https://github.com/AntonioPedroPereira)
+
+## Acknowledgements
+Development assisted by Claude (Anthropic) for code generation and documentation.
