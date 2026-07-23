@@ -1,0 +1,141 @@
+# Precision Micro-Irrigation Controller (written with Claude)
+### Automated Indoor Irrigation System — Arduino Nano / Embedded C++
+
+A standalone embedded system for automated precision irrigation, designed for indoor farming and seedling cultivation. Built around a Finite State Machine (FSM) architecture, the controller provides programmable irrigation cycles, timed repetition, real-time countdown display, and hardware self-diagnostics. All operated through a physical keypad and 14-segment HMI.
+
+---
+
+## Features
+
+- **FSM-based control logic** with 8 distinct states and interrupt-driven transitions
+- **Programmable irrigation timer** with millisecond-level precision
+- **Automatic repeat cycles** with configurable wait intervals (HH:MM format, up to 24h+)
+- **Immediate manual irrigation** trigger via keypad
+- **Sleep/REST mode** with auto screen-off after 15 seconds of inactivity
+- **Hardware self-diagnostic mode** — sequential LED segment rotation across all 4 display digits
+- **Adjustable display brightness** (16 levels, 0–15)
+- **Auditory feedback** — distinct sounds for confirmation, error, warning, and success
+- **Galvanic isolation** between power (pump) and signal (Arduino) circuits
+- **Flyback diode protection** against back-EMF on relay switching
+- **Hydrostatic purge** of the distribution circuit on every cycle to eliminate stagnant water
+- **Dry-run protection** via controlled relay logic
+
+---
+
+## Hardware
+
+| Component | Details |
+|---|---|
+| Microcontroller | Arduino Nano |
+| Display | Adafruit 14-Segment AlphaNum4 LED Backpack (HT16K33, I2C @ 0x70) |
+| Input | 4×3 Matrix Keypad |
+| Output | Relay module (controls pump) |
+| Feedback | Piezo buzzer |
+| Power | Independent supplies for signal and power circuits (galvanic isolation) |
+
+### Pin Mapping
+
+| Function | Pins |
+|---|---|
+| Keypad rows | 6, 2, 3, 5 |
+| Keypad columns | 7, 8, 4 |
+| Buzzer | 9 |
+| Relay | 10 |
+| Display (I2C) | SDA/SCL (A4/A5) |
+
+---
+
+## State Machine
+
+```
+                    ┌─────────────────────────────┐
+                    │         SELECAO_MODO         │
+                    │           (MODE)             │
+                    └────────────┬────────────────┘
+           ┌──────┬──────┬──────┼──────┬──────┐
+           │      │      │      │      │      │
+          1#     2#     3#     4#     0#     5#
+           │      │      │      │      │      │
+           ▼      ▼      ▼      ▼      ▼      ▼
+        CONFIG  CONFIG  CONTA  CONFIG DESLIG  TESTE
+         REGA  ESPERA  AGEM  BRILHO  ADO    LEDS
+                  │      │
+                  ▼      │
+             REPETITIVO  │
+              CUSTOM     │
+                  │      │
+                  └──────┘
+            (* at any point returns to MODE)
+```
+
+### State Reference
+
+| Key | State | Description |
+|---|---|---|
+| `1#` | MODO_CONFIG_REGA | Set irrigation duration (1–9999 ms) |
+| `2#` | MODO_CONFIG_ESPERA_24H | Set repeat interval (HHMM format) → starts auto-cycle |
+| `3#` | CONTAGEM | Immediate irrigation using stored duration |
+| `4#` | MODO_CONFIG_BRILHO | Set display brightness (0–15) |
+| `0#` | MODO_DESLIGADO | Sleep mode — display off, any key wakes |
+| `5#` | MODO_TESTE_LEDS | Hardware diagnostic — rotates all 16 segments across 4 digits |
+| `*` | — | Backspace / interrupt current cycle |
+
+---
+
+## Usage
+
+### Quick Start
+
+1. Power on → display shows `MODE`
+2. Press `1` then `#` to enter irrigation time config
+3. Enter duration in milliseconds (e.g. `5000` = 5 seconds), confirm with `#`
+4. Press `3#` for immediate irrigation, or `2#` to set a timed repeat cycle
+
+### Timed Repeat Cycle
+
+1. Configure irrigation time first via `1#`
+2. Press `2#` to enter wait interval (format: `HHMM`, e.g. `0800` = 8 hours)
+3. Confirm with `#` — system starts counting down and irrigates automatically at each interval
+4. Press `*` at any time to interrupt and return to `MODE`
+
+### Display Format
+
+- `MODE` — idle, awaiting input
+- `0000`–`9999` — numeric entry or countdown
+- `HH.MM` — countdown timer (dot separator between hours and minutes)
+- `REST` — sleep/hibernation mode
+- `ERR` — invalid input detected
+
+---
+
+## Dependencies
+
+```
+Adafruit GFX Library
+Adafruit LED Backpack Library
+Wire (built-in)
+```
+
+Install via Arduino Library Manager or `platformio.ini`.
+
+---
+
+## Hardware Notes
+
+**Galvanic isolation:** The pump and Arduino are powered by independent supplies to prevent voltage sag (brownout) on the signal circuit during pump startup. A relay acts as the interface between the two domains.
+
+**Flyback diode:** Installed across the pump output terminals to suppress back-EMF transients generated by the motor on shutdown, preventing inductive discharge currents from propagating back into the control circuit.
+
+**Flow distribution:** 24 simultaneous outputs are balanced using conical flow restrictors (drippers), achieving uniform moisture distribution across the irrigation zone.
+
+**Hydrostatic purge:** Each irrigation cycle flushes stagnant water from the distribution lines before reaching plant roots, preventing bacterial buildup.
+
+**Anti-siphon:** A vacuum breaker (atmospheric break) was implemented in the hydraulic circuit to prevent gravity-driven siphoning and uncontrolled flooding when the pump is off.
+
+---
+
+## Author
+
+António P. Pereira
+Electrical and Computer Engineering — Automation, FEUP
+[LinkedIn](https://www.linkedin.com/in/ant%C3%B3nio-pereira-98b732352/) | [GitHub](https://github.com/AntonioPedroPereira)
