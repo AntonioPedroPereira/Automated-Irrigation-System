@@ -137,4 +137,4 @@ Electrical and Computer Engineering — Automation
 [LinkedIn](https://www.linkedin.com/in/ant%C3%B3nio-pereira-98b732352/) | [GitHub](https://github.com/AntonioPedroPereira)
 
 ## Acknowledgements
-Development assisted by Gemini for code generation and Claude (Anthropic) for documentation.
+Thank you Father God, Lord Jesus and Holy Spirit for loving me and for all the blessings you freely share each and every day. Blessed be the name of the Living God for all eternity, for He is Holy and worthy of all praise and glory, honor, power and dominion. Blessed be His Holy name forever and ever, Amen
