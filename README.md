@@ -124,7 +124,7 @@ Install via Arduino Library Manager or `platformio.ini`.
 
 **Flow distribution:** 24 simultaneous outputs are balanced using conical flow restrictors (drippers), achieving uniform moisture distribution across the irrigation zone.
 
-**Hydrostatic purge:** Each irrigation cycle flushes stagnant water from the distribution lines before reaching plant roots, preventing bacterial buildup.
+**Gravity-driven purge:** The architecture forces lines to completely drain and dry via gravity after each cycle, eliminating standing water and preventing bio-film/bacterial accumulation inside the upper tubing.
 
 **Anti-siphon:** A vacuum breaker (atmospheric break) was implemented in the hydraulic circuit to prevent gravity-driven siphoning and uncontrolled flooding when the pump is off.
 
